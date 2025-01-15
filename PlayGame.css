@@ -1,0 +1,57 @@
+.play-area .play-box {
+  height: 631px;
+  position: relative;
+  top: 40px;
+  background: url("../public/images/baseball-glove-4269892_1280.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.play-area .text-box {
+  padding-top: 70px;
+}
+
+.text-box h1 {
+  white-space: pre-wrap;
+  color: #ebfaf4;
+  opacity: 0.9;
+  height: 149px;
+}
+
+.play-area .inputs {
+  padding-top: 80px;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.play-area .inputs input {
+  width: 150px;
+  height: 150px;
+  border: 1px solid;
+  display: inline-block;
+  outline: none;
+  font-size: 80px;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.play-area .button-box {
+  padding-top: 100px;
+  display: flex;
+  gap: 140px;
+  justify-content: center;
+}
+
+.play-area #clearText {
+  position: relative;
+  bottom: 420px;
+  font-size: 2.5em;
+  z-index: 1;
+}
