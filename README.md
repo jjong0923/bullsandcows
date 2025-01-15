@@ -13,7 +13,7 @@
   const newHistory = [...prevHistory, {inputs : [...inputs], strikeCount, ballCount}];
 </h3>
 <p>
-  inputs:[...inputs] -> [...inputs] 객체 속성 이름을 inputs로 저장을 하고<br>\
+  inputs:[...inputs] -> [...inputs] 객체 속성 이름을 inputs로 저장을 하고<br>
   만약 "inputs:"가 없다면 속성 이름 없이 단순히 배열만 복사하기 때문에 X
 </p>
 
