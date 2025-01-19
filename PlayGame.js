@@ -53,7 +53,7 @@ function PlayGame() {
         }
       }
     }
-    tryCount++;
+    if (display !== true) tryCount++;
 
     return { strikes, balls };
   }
@@ -64,7 +64,10 @@ function PlayGame() {
     let ballCount = balls;
 
     setShowHistory((prevHistory) => {
-      const newHistory = [...prevHistory, {inputs : [...inputs], strikeCount, ballCount}];
+      const newHistory = [
+        ...prevHistory,
+        { inputs: [...inputs], strikeCount, ballCount },
+      ];
       return newHistory;
     });
 
@@ -84,22 +87,23 @@ function PlayGame() {
         <h1 className="text1">{messgae}</h1>
       </div>
       <div className="show-history">
-        <table>
-          <tr>
-            <th>횟수</th>
-            <th>숫자리스트</th>
-            <th>구분</th>
+        <table className="show-history-table">
+          <tr className="table-head">
+            <td className="count">횟수</td>
+            <td className="number-list">숫자</td>
+            <td className="strike-ball">스트라이크/볼</td>
           </tr>
-          {showHistory
-            .map((item, i) => {
-              return (
-                <tr key={i}>
-                  <td>{i + 1}</td>
-                  <td>{item.inputs.join(", ")}</td>
-                  <td>{item.strikeCount} / {item.ballCount}</td>
-                </tr>
-              );
-            })}
+          {showHistory.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{item.inputs.join(", ")}</td>
+                <td>
+                  {item.strikeCount} / {item.ballCount}
+                </td>
+              </tr>
+            );
+          })}
         </table>
       </div>
       <div className="inputs">

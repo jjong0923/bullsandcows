@@ -1,3 +1,17 @@
+.play-area {
+  width: 100%;
+  height: 744px;
+  font-size: 1.75em;
+  background: linear-gradient(
+    7.07deg,
+    #007b4f -42.92%,
+    #00a367 37.17%,
+    #56c39a 75.47%,
+    #ebfaf4 108.86%
+  );
+  text-align: center;
+}
+
 .play-area .play-box {
   height: 631px;
   position: relative;
@@ -54,4 +68,32 @@ input::-webkit-inner-spin-button {
   bottom: 420px;
   font-size: 2.5em;
   z-index: 1;
+}
+
+.show-history {
+  width: 300px;
+  height: 300px;
+  top: 100px;
+  left: 20px;
+  font-size: 24px;
+  position: fixed;
+  display: flex;
+  z-index: 10;
+}
+
+table {
+  border-collapse: collapse;
+  overflow: auto;
+}
+
+table tr {
+  border: 1px solid #ebfaf4;
+}
+
+tr td:nth-child(2) {
+  border-left: 1px solid #ebfaf4;
+  border-right: 1px solid #ebfaf4;
+}
+.show-history-table {
+  display: inline-block;
 }
