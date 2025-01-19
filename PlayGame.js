@@ -87,24 +87,30 @@ function PlayGame() {
         <h1 className="text1">{messgae}</h1>
       </div>
       <div className="show-history">
-        <table className="show-history-table">
-          <tr className="table-head">
-            <td className="count">횟수</td>
-            <td className="number-list">숫자</td>
-            <td className="strike-ball">스트라이크/볼</td>
-          </tr>
-          {showHistory.map((item, i) => {
-            return (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{item.inputs.join(", ")}</td>
-                <td>
-                  {item.strikeCount} / {item.ballCount}
-                </td>
+        <div className="show-history-table-wrapper">
+          <table className="show-history-table">
+            <thead>
+              <tr className="table-head">
+                <td className="count">횟수</td>
+                <td className="number-list">숫자</td>
+                <td className="strike-ball">스트라이크/볼</td>
               </tr>
-            );
-          })}
-        </table>
+            </thead>
+            <tbody>
+              {showHistory.map((item, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{item.inputs.join(", ")}</td>
+                    <td>
+                      {item.strikeCount} / {item.ballCount}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="inputs">
         {inputs.map((value, index) => (
