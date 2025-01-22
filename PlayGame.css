@@ -71,8 +71,8 @@ input::-webkit-inner-spin-button {
 }
 
 .show-history {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 340px;
   top: 100px;
   left: 20px;
   font-size: 24px;
@@ -108,15 +108,19 @@ table {
 }
 
 tr {
-  border: 1px solid #ebfaf4;
+  border: 2px solid #1a1a1a;
 }
 
 tr td:nth-child(2) {
   padding: 4px;
-  border-left: 1px solid #ebfaf4;
-  border-right: 1px solid #ebfaf4;
+  border-left: 2px solid #1a1a1a;
+  border-right: 2px solid #1a1a1a;
 }
 
 .show-history-table {
   display: inline-block;
+}
+
+.table-head td {
+  padding: 4px;
 }
