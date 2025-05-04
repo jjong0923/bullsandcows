@@ -30,5 +30,8 @@
         <button type="submit">제출</button>
         <button formaction="/restart" formmethod="get">게임 초기화</button>
     </form>
+    {{#rankinglist}}
+        <p>ID(순서): {{id}} / 시도횟수: {{tryCount}}</p>
+    {{/rankinglist}}
 </body>
 </html>

@@ -26,6 +26,7 @@ public class NumberBaseball {
     public NumberBaseball() {
         clearGame();
     }
+
     // 게임 리셋
     public void clearGame() {
         setBase = generateBaseNumber();
@@ -33,6 +34,12 @@ public class NumberBaseball {
         gameEnd = false;
         gamHistory.clear();
     }
+
+    // 지금까지 진행한 게임 횟수 반환
+    public int getTryCount() {
+        return this.tryCount;
+    }
+
     // 3개의 중복되지 않는 랜덤한 숫자를 배열로 만듦
     private List<Integer> generateBaseNumber() {
         List<Integer> baseNumber = new ArrayList<>();
@@ -45,6 +52,7 @@ public class NumberBaseball {
         }
         return baseNumber;
     }
+
     // 한 게임에서 1회 진행하는 메소드
     public GameResult play(List<Integer> input) {
         if (gameEnd) return new GameResult(0, 0);
@@ -67,9 +75,13 @@ public class NumberBaseball {
         if (strikes == 3) {
             gameEnd = true; // 게임 종료
             // 여기에서 tryCount를 DB에 넣는 코드가 필요할 것 같음
+            // --> Service layer는 단순한 게임 로직 일뿐 DB 저장을 위해서는 Controller에서 진행
         }
         return new GameResult(strikes, balls);
     }
+
+
+
     // GameResult, GameHistory 클래스 - 롬복을 통해 get메소드
     // 1회 진행의 스트라이크, 볼, 끝남 여부를 갖는 GameResult 클래스
     @Getter
@@ -82,6 +94,7 @@ public class NumberBaseball {
             this.balls = balls;
         }
     }
+
     // 1회 진행의 인풋 값과 스트라이크, 볼을 갖는 History 클래스
     @Getter
     public static class GameHistory {
@@ -95,4 +108,5 @@ public class NumberBaseball {
             this.ballCount = ballCount;
         }
     }
+
 }
