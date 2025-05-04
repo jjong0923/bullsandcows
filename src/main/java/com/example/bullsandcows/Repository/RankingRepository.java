@@ -1,4 +1,11 @@
 package com.example.bullsandcows.Repository;
 
-public class RankingRepository {
+import com.example.bullsandcows.Entity.Ranking;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.ArrayList;
+
+public interface RankingRepository  extends CrudRepository<Ranking, Long> {
+    @Override
+    ArrayList<Ranking> findAll();
 }
