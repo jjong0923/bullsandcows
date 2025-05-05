@@ -22,10 +22,28 @@ public class NumberBaseballController {
     public NumberBaseballController(NumberBaseball numberBaseball) {
         this.numberBaseball = numberBaseball;
     }
+    // 초기(로그인 페이지)
+//    @GetMapping("login")
+//    public String login(Model model){
+//        // id, pw 로그인 -> redriect
+//
+//        // 1. id, pw 로그인 -> DB에 id, pw 맞는지 검사
+//        // 2. x -> 회원가입 -> DB 저장
+//        // 3. o -> redirect bullsandcows
+//        return "login";
+//    }
 
-    // 초기 페이지 경로
+    // 게임 시작 페이지
     @GetMapping("/bullsandcows")
-    public String index() {
+    public String index(Model model) {
+        // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
+        List<Ranking> rankingEnitylist = rankingRepository.findAll();
+        model.addAttribute("rankinglist",rankingEnitylist);
+
+        // 새 게임 시작 -> 기본 값 설정
+        model.addAttribute("setBase", numberBaseball.getSetBase());
+        model.addAttribute("history", numberBaseball.getGamHistory());
+        model.addAttribute("finished", false); // 처음엔 게임 안 끝났으니까 false
         return "index";
     }
 
@@ -40,6 +58,8 @@ public class NumberBaseballController {
         // NumberBaseball play 메소드(스트라이크/볼)을 GameResult 클래스 result에 넣어줌
         NumberBaseball.GameResult result = numberBaseball.play(input); // GameResult rest = new GameResult(strikes, balls)
 
+        // 게임이 끝났는지 체그하는 flag
+        boolean isFinished = numberBaseball.isGameEnd();
 //        // dto가 저장되는지 확인위한 로그
 //        System.out.println(rankingForm.toString());
 //
@@ -51,29 +71,25 @@ public class NumberBaseballController {
 //        Ranking saved = rankingRepository.save(ranking);
 //        System.out.println(saved.toString());
 
-        // 해결해야 될 문제
-        // 1. 결과를 맞추고도 계속해서 DB에 맞췄을때의 카운트가 삽입됨
-        // 2. 결과를 맞췄을때 DB 목록이 뜸 -> 처음 시작할 때부터 DB 목록이 떠야 됨
-        
         // dto -> enity-> repository
-        if(numberBaseball.isGameEnd()) { // 게임이 끝날 경우 DB에 저장된다.
+        if(isFinished) { // 게임이 끝날 경우(정답을 맞춘경우) DB에 저장된다.
             Ranking ranking = new Ranking();
             ranking.setTryCount(numberBaseball.getTryCount());
             rankingRepository.save(ranking);
-            // DB 저장 후 바로 초기화하여 맞추고도 DB에 자장되는 것을 방지
-//            numberBaseball.clearGame();
 
-            // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
-            //  Repo에서 entity리스트로 데이터 가져오기
-            List<Ranking> rankingEntityList = rankingRepository.findAll();
-            // model에 등록하기
-            model.addAttribute("rankinglist", rankingEntityList);
+            numberBaseball.clearGame(); // 저장 후 게임 초기화
         }
 
-        model.addAttribute("setBase", numberBaseball.getSetBase()); // 테스트용
+        // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
+        //  Repo에서 entity리스트로 데이터 가져오기
+        List<Ranking> rankingEntityList = rankingRepository.findAll();
+        // model에 등록하기
+        model.addAttribute("rankinglist", rankingEntityList);
+
+        model.addAttribute("setBase", numberBaseball.getSetBase());
         model.addAttribute("result", result); // 게임 결과
-        model.addAttribute("history", numberBaseball.getGamHistory()); // 게임 진행 기록
-        model.addAttribute("finished", numberBaseball.isGameEnd()); // 게임 끝 메세지 출력
+        model.addAttribute("history", numberBaseball.getGamHistory()); // 게임 진행
+        model.addAttribute("finished", isFinished); // 게임 끝 메세지 출력 -> flag로 상태 전달
         return "index";
     }
 
