@@ -13,13 +13,11 @@ import java.util.*;
 // play 메소드 - 스트라이크, 볼 카운트가 끝나면 History 클래스 생성해서 history 리스트에 add
 //            - 리턴 GameResult 클래스 생성(스트라이크, 볼, 끝남 여부)
 public class NumberBaseball {
-    @Getter
     private List<Integer> setBase; // 3개의 랜덤한 숫자
+    // 지금까지 진행한 게임 횟수 반환
     private int tryCount; // 한 게임의 총 진행 횟수
     // index에 반복, 조건을 넣을 gamHistory gameEnd 롬복을 통해 get
-    @Getter
     private final List<GameHistory> gamHistory = new ArrayList<>(); // 진행 결과
-    @Getter
     private boolean gameEnd = false; // 게임 종료 여부
 
     // 자동 초기화
@@ -33,11 +31,6 @@ public class NumberBaseball {
         tryCount = 0;
         gameEnd = false;
         gamHistory.clear();
-    }
-
-    // 지금까지 진행한 게임 횟수 반환
-    public int getTryCount() {
-        return this.tryCount;
     }
 
     // 3개의 중복되지 않는 랜덤한 숫자를 배열로 만듦
@@ -74,15 +67,13 @@ public class NumberBaseball {
 
         if (strikes == 3) {
             gameEnd = true; // 게임 종료
-            // 여기에서 tryCount를 DB에 넣는 코드가 필요할 것 같음
-            // --> Service layer는 단순한 게임 로직 일뿐 DB 저장을 위해서는 Controller에서 진행
         }
         return new GameResult(strikes, balls);
     }
 
 
 
-    // GameResult, GameHistory 클래스 - 롬복을 통해 get메소드
+    // GameResult, GameHistory 클래스 - 롬복을 통해 get 메소드
     // 1회 진행의 스트라이크, 볼, 끝남 여부를 갖는 GameResult 클래스
     @Getter
     public static class GameResult {

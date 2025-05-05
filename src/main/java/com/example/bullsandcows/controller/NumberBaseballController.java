@@ -51,11 +51,17 @@ public class NumberBaseballController {
 //        Ranking saved = rankingRepository.save(ranking);
 //        System.out.println(saved.toString());
 
+        // 해결해야 될 문제
+        // 1. 결과를 맞추고도 계속해서 DB에 맞췄을때의 카운트가 삽입됨
+        // 2. 결과를 맞췄을때 DB 목록이 뜸 -> 처음 시작할 때부터 DB 목록이 떠야 됨
+        
         // dto -> enity-> repository
         if(numberBaseball.isGameEnd()) { // 게임이 끝날 경우 DB에 저장된다.
             Ranking ranking = new Ranking();
             ranking.setTryCount(numberBaseball.getTryCount());
             rankingRepository.save(ranking);
+            // DB 저장 후 바로 초기화하여 맞추고도 DB에 자장되는 것을 방지
+//            numberBaseball.clearGame();
 
             // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
             //  Repo에서 entity리스트로 데이터 가져오기
@@ -64,9 +70,9 @@ public class NumberBaseballController {
             model.addAttribute("rankinglist", rankingEntityList);
         }
 
-        model.addAttribute("setBase", numberBaseball.getSetBase());
+        model.addAttribute("setBase", numberBaseball.getSetBase()); // 테스트용
         model.addAttribute("result", result); // 게임 결과
-        model.addAttribute("history", numberBaseball.getGamHistory()); // 게임 진행
+        model.addAttribute("history", numberBaseball.getGamHistory()); // 게임 진행 기록
         model.addAttribute("finished", numberBaseball.isGameEnd()); // 게임 끝 메세지 출력
         return "index";
     }
