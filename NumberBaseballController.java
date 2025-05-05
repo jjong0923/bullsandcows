@@ -17,23 +17,14 @@ public class NumberBaseballController {
     // 의존성 주입
     @Autowired
     RankingRepository rankingRepository;
+
     // NumberBaseball.java 가져오기
     private final NumberBaseball numberBaseball;
     public NumberBaseballController(NumberBaseball numberBaseball) {
         this.numberBaseball = numberBaseball;
     }
-    // 초기(로그인 페이지)
-//    @GetMapping("login")
-//    public String login(Model model){
-//        // id, pw 로그인 -> redriect
-//
-//        // 1. id, pw 로그인 -> DB에 id, pw 맞는지 검사
-//        // 2. x -> 회원가입 -> DB 저장
-//        // 3. o -> redirect bullsandcows
-//        return "login";
-//    }
 
-    // 게임 시작 페이지
+    // 초기 페이지 경로
     @GetMapping("/bullsandcows")
     public String index(Model model) {
         // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
