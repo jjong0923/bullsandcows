@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Getter
 @Service
 // index.mustache에서 출력할 GameResult, GameHisytory 2개의 클래스와 gameEnd 불린 값
 // 게임 진행 결과 - GameResult 리턴 값
