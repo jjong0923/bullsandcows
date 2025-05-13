@@ -4,6 +4,8 @@ import com.example.bullsandcows.DTO.RankingForm;
 import com.example.bullsandcows.Entity.Ranking;
 import com.example.bullsandcows.Repository.RankingRepository;
 import com.example.bullsandcows.service.NumberBaseball;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +25,47 @@ public class NumberBaseballController {
         this.numberBaseball = numberBaseball;
     }
 
-    // 초기 페이지 경로
+    @GetMapping("login")
+    public String login(Model model){
+//        // id, pw 로그인 -> redriect
+//
+//        // 1. id, pw 로그인 -> DB에 id, pw 맞는지 검사 - 패스
+//        // 2. x -> 회원가입 -> DB 저장 - 패스
+//        // 3. o -> redirect bullsandcows
+        return "login";
+    }
+
+    @PostMapping("loginuser")
+    public String user(@RequestParam(name = "userId") String userId, //index의 각 input태그로부터 파라미터 가져옴
+                       @RequestParam(name = "userPw") String userPw,
+                       final HttpServletRequest request){
+
+        HttpSession user = request.getSession();
+        user.setAttribute("id", userId);
+        user.setAttribute("pw", userPw);
+
+        return "redirect:/bullsandcows";
+    }
+
     @GetMapping("/bullsandcows")
-    public String index() {
+    public String index(Model model, final HttpServletRequest request) {
+        // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
+        List<Ranking> rankingEnitylist = rankingRepository.findAll();
+//        HttpSession session = request.getSession();
+
+//        String id = String.valueOf(session.getAttribute("id"));
+//        String pw = String.valueOf(session.getAttribute("pw"));
+
+        model.addAttribute("rankinglist",rankingEnitylist);
+
+        // user ID/PW 확인
+//        model.addAttribute("id", id);
+//        model.addAttribute("pw", pw);
+
+        // 새 게임 시작 -> 기본 값 설정
+        model.addAttribute("setBase", numberBaseball.getSetBase());
+        model.addAttribute("history", numberBaseball.getGamHistory());
+        model.addAttribute("finished", false); // 처음엔 게임 안 끝났으니까 false
         return "index";
     }
 
@@ -34,6 +74,7 @@ public class NumberBaseballController {
     public String guess(@RequestParam(name = "number1") int number1, //index의 각 input태그로부터 파라미터 가져옴
                         @RequestParam(name = "number2") int number2,
                         @RequestParam(name = "number3") int number3,
+                        final HttpServletRequest request,
                         Model model) {
         List<Integer> input = Arrays.asList(number1, number2, number3); // input 태그 값을 배열로
 
