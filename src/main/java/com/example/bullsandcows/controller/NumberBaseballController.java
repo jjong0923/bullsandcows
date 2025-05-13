@@ -25,7 +25,7 @@ public class NumberBaseballController {
         this.numberBaseball = numberBaseball;
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String login(Model model){
 //        // id, pw 로그인 -> redriect
 //
@@ -35,7 +35,7 @@ public class NumberBaseballController {
         return "login";
     }
 
-    @PostMapping("loginuser")
+    @PostMapping("/loginuser")
     public String user(@RequestParam(name = "userId") String userId, //index의 각 input태그로부터 파라미터 가져옴
                        @RequestParam(name = "userPw") String userPw,
                        final HttpServletRequest request){
@@ -47,21 +47,30 @@ public class NumberBaseballController {
         return "redirect:/bullsandcows";
     }
 
+    @GetMapping("/logoutuser")
+    public String logout(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:/login";
+    }
+
     @GetMapping("/bullsandcows")
     public String index(Model model, final HttpServletRequest request) {
         // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
         List<Ranking> rankingEntityList = rankingRepository.findAllByOrderByTryCountAsc();
 //        List<Ranking> rankingEntityList = rankingRepository.findAll();
-//        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
-//        String id = String.valueOf(session.getAttribute("id"));
-//        String pw = String.valueOf(session.getAttribute("pw"));
+        String id = String.valueOf(session.getAttribute("id"));
+        String pw = String.valueOf(session.getAttribute("pw"));
 
         model.addAttribute("rankinglist",rankingEntityList);
 
         // user ID/PW 확인
-//        model.addAttribute("id", id);
-//        model.addAttribute("pw", pw);
+        model.addAttribute("id", id);
+        model.addAttribute("pw", pw);
 
         // 새 게임 시작 -> 기본 값 설정
         model.addAttribute("setBase", numberBaseball.getSetBase());
@@ -81,7 +90,12 @@ public class NumberBaseballController {
 
         // NumberBaseball play 메소드(스트라이크/볼)을 GameResult 클래스 result에 넣어줌
         NumberBaseball.GameResult result = numberBaseball.play(input); // GameResult rest = new GameResult(strikes, balls)
+        HttpSession session = request.getSession();
+        String id = String.valueOf(session.getAttribute("id"));
+        String pw = String.valueOf(session.getAttribute("pw"));
 
+        model.addAttribute("id", id);
+        model.addAttribute("pw", pw);
 //        // dto가 저장되는지 확인위한 로그
 //        System.out.println(rankingForm.toString());
 //

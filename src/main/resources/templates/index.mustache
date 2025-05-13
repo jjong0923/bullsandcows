@@ -6,6 +6,8 @@
 <body>
     <h2>⚾ 숫자 야구 게임</h2>
     <h3>히스토리</h3>
+    {{id}}<br>
+    {{pw}}
     <ul>
         {{#history}}
             <li>{{inputs}} → {{strikeCount}}S {{ballCount}}B</li>
@@ -29,8 +31,8 @@
         <input type="number" name="number3" min="1" max="9">
         <button type="submit">제출</button>
         <button formaction="/restart" formmethod="get">게임 초기화</button>
+        <button formaction="/logoutuser" formmethod="get">로그아웃</button>
     </form>
-    <a type="button">로그아웃</a>
     {{#rankinglist}}
         <p>ID(순서): {{id}} / 시도횟수: {{tryCount}}</p>
     {{/rankinglist}}
