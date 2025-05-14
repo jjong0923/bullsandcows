@@ -7,3 +7,4 @@ INSERT INTO ranking (try_count) VALUES (5);
 INSERT INTO ranking (try_count) VALUES (7);
 INSERT INTO ranking (try_count) VALUES (3);
 INSERT INTO ranking (try_count) VALUES (6);
+INSERT INTO ranking (try_count) VALUES (6);
