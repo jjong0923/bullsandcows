@@ -125,8 +125,9 @@ public class NumberBaseballController {
             // model에 등록하기
             model.addAttribute("rankinglist", rankingEntityList);
 
-            numberBaseball.clearGame(); // 저장 후 게임 초기화
+            // * 게임을 맞추면
 
+            numberBaseball.clearGame(); // 저장 후 게임 초기화
         }
 
         // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
