@@ -62,6 +62,7 @@ public class NumberBaseballController {
             List<Ranking> rankingEntityList = rankingRepository.findAll();
             // model에 등록하기
             model.addAttribute("rankinglist", rankingEntityList);
+            // * 게임을 맞추면
         }
 
         model.addAttribute("setBase", numberBaseball.getSetBase());
