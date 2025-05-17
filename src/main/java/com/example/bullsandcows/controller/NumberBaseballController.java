@@ -66,20 +66,11 @@ public class NumberBaseballController {
         String id = String.valueOf(session.getAttribute("id"));
         String pw = String.valueOf(session.getAttribute("pw"));
 
-        model.addAttribute("rankinglist",rankingEntityList);
+        model.addAttribute("rankinglist", rankingEntityList);
 
         // user ID/PW 확인
         model.addAttribute("id", id);
         model.addAttribute("pw", pw);
-
-    // 게임 시작 페이지
-    @GetMapping("/bullsandcows")
-    public String index(Model model) {
-        // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
-        List<Ranking> rankingEnitylist = rankingRepository.findAll();
-        model.addAttribute("rankinglist",rankingEnitylist);
-
-
         // 새 게임 시작 -> 기본 값 설정
         model.addAttribute("setBase", numberBaseball.getSetBase());
         model.addAttribute("history", numberBaseball.getGamHistory());
