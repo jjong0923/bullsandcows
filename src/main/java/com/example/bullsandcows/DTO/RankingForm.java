@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor @NoArgsConstructor
 @ToString
 public class RankingForm {
-    private int tryCount;
+    private String userID; // schema의 userID
+    private int tryCount; // schema의 tryCount
 
 
 //    public RankingForm(int number1,int number2, int number3) {
@@ -29,6 +30,7 @@ public class RankingForm {
     // dto - > toEntity
     public Ranking toEntity() {
         Ranking ranking = new Ranking();
+        ranking.setUserID(userID); // userID 또한 Entity로 같이 변환
         ranking.setTryCount(this.tryCount);
         return ranking;
     }

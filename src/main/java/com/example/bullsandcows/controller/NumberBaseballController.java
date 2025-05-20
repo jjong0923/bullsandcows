@@ -19,8 +19,10 @@ public class NumberBaseballController {
     // 의존성 주입
     @Autowired
     RankingRepository rankingRepository;
+
     // NumberBaseball.java 가져오기
     private final NumberBaseball numberBaseball;
+
     public NumberBaseballController(NumberBaseball numberBaseball) {
         this.numberBaseball = numberBaseball;
     }
@@ -53,6 +55,8 @@ public class NumberBaseballController {
         HttpSession session = request.getSession();
         session.invalidate();
 
+        numberBaseball.clearGame();
+
         return "redirect:/login";
     }
 
@@ -61,6 +65,7 @@ public class NumberBaseballController {
         // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
         List<Ranking> rankingEntityList = rankingRepository.findAllByOrderByTryCountAsc();
 //        List<Ranking> rankingEntityList = rankingRepository.findAll();
+
         HttpSession session = request.getSession();
 
         String id = String.valueOf(session.getAttribute("id"));
@@ -114,6 +119,7 @@ public class NumberBaseballController {
         // dto -> enity-> repository
         if(isFinished) { // 게임이 끝날 경우(정답을 맞춘경우) DB에 저장된다.
             Ranking ranking = new Ranking();
+            ranking.setUserID(id); // 위에 세션으로 가져온 아이디를 DB에 저정한다.
             ranking.setTryCount(numberBaseball.getTryCount());
             rankingRepository.save(ranking);
 
