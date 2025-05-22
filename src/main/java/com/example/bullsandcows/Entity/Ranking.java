@@ -18,6 +18,9 @@ public class Ranking {
 
 
     @Column
+    private String userID;
+
+    @Column
     private int tryCount;
 
 //    @Column
