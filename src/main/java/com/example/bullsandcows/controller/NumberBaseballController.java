@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class NumberBaseballController {
     public NumberBaseballController(NumberBaseball numberBaseball) {
         this.numberBaseball = numberBaseball;
     }
-  
+
     @GetMapping("/login")
     public String login(Model model){
 //        // id, pw 로그인 -> redriect
@@ -56,7 +57,6 @@ public class NumberBaseballController {
         session.invalidate();
 
         numberBaseball.clearGame();
-
         return "redirect:/login";
     }
 
@@ -65,6 +65,11 @@ public class NumberBaseballController {
         // 시작 페이지에서 기존에 넣어줬던 더미 데이터 출력
         List<Ranking> rankingEntityList = rankingRepository.findAllByOrderByTryCountAsc();
 //        List<Ranking> rankingEntityList = rankingRepository.findAll();
+        List<RankingForm> rankingFormList = new ArrayList<>();
+        int rank = 1;
+        for(Ranking r: rankingEntityList) {
+            rankingFormList.add(new RankingForm(rank++,r.getUserID(),r.getTryCount()));
+        }
 
         HttpSession session = request.getSession();
 
@@ -72,7 +77,7 @@ public class NumberBaseballController {
         String pw = String.valueOf(session.getAttribute("pw"));
 
         model.addAttribute("rankinglist", rankingEntityList);
-
+        model.addAttribute("rankingList",rankingFormList);
         // user ID/PW 확인
         model.addAttribute("id", id);
         model.addAttribute("pw", pw);
@@ -123,21 +128,21 @@ public class NumberBaseballController {
             ranking.setTryCount(numberBaseball.getTryCount());
             rankingRepository.save(ranking);
 
-
-            // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
-            //  Repo에서 entity리스트로 데이터 가져오기
-//            List<Ranking> rankingEntityList = rankingRepository.findAll();
-            List<Ranking> rankingEntityList = rankingRepository.findAllByOrderByTryCountAsc();
-            // model에 등록하기
-            model.addAttribute("rankinglist", rankingEntityList);
-
             numberBaseball.clearGame(); // 저장 후 게임 초기화
-
         }
 
         // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
         //  Repo에서 entity리스트로 데이터 가져오기
-        List<Ranking> rankingEntityList = rankingRepository.findAll();
+//            List<Ranking> rankingEntityList = rankingRepository.findAll();
+        List<Ranking> rankingEntityList = rankingRepository.findAllByOrderByTryCountAsc();
+
+        List<RankingForm> rankingFormList = new ArrayList<>();
+        int rank = 1;
+        for(Ranking r: rankingEntityList) {
+            rankingFormList.add(new RankingForm(rank++,r.getUserID(),r.getTryCount()));
+        }
+
+        model.addAttribute("rankingList",rankingFormList);
         // model에 등록하기
         model.addAttribute("rankinglist", rankingEntityList);
 

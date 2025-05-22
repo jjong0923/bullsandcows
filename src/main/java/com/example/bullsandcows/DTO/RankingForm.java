@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor @NoArgsConstructor
 @ToString
 public class RankingForm {
+    private int rank; // DB에는 rank가 없지만 뷰에 전달하기 위해 주가
     private String userID; // schema의 userID
     private int tryCount; // schema의 tryCount
 
