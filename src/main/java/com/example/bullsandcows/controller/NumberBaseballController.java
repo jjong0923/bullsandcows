@@ -128,6 +128,15 @@ public class NumberBaseballController {
             ranking.setTryCount(numberBaseball.getTryCount());
             rankingRepository.save(ranking);
 
+            // 마찬가지로 게임이 끝난 경우 DB에 저장된 데이터를 가져와 보여 줄 수 있게 한다
+            //  Repo에서 entity리스트로 데이터 가져오기
+//            List<Ranking> rankingEntityList = rankingRepository.findAll();
+            List<Ranking> rankingEntityList = rankingRepository.findAllByOrderByTryCountAsc();
+            // model에 등록하기
+            model.addAttribute("rankinglist", rankingEntityList);
+
+            // * 게임을 맞추면
+
             numberBaseball.clearGame(); // 저장 후 게임 초기화
         }
 
