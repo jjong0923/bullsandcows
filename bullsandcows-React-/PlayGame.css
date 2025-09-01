@@ -1,0 +1,126 @@
+.play-area {
+  width: 100%;
+  height: 744px;
+  font-size: 1.75em;
+  background: linear-gradient(
+    7.07deg,
+    #007b4f -42.92%,
+    #00a367 37.17%,
+    #56c39a 75.47%,
+    #ebfaf4 108.86%
+  );
+  text-align: center;
+}
+
+.play-area .play-box {
+  height: 631px;
+  position: relative;
+  top: 40px;
+  background: url("../public/images/baseball-glove-4269892_1280.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.play-area .text-box {
+  padding-top: 70px;
+}
+
+.text-box h1 {
+  white-space: pre-wrap;
+  color: #ebfaf4;
+  opacity: 0.9;
+  height: 149px;
+}
+
+.play-area .inputs {
+  padding-top: 80px;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.play-area .inputs input {
+  width: 150px;
+  height: 150px;
+  border: 1px solid;
+  display: inline-block;
+  outline: none;
+  font-size: 80px;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.play-area .button-box {
+  padding-top: 100px;
+  display: flex;
+  gap: 140px;
+  justify-content: center;
+}
+
+.play-area #clearText {
+  position: relative;
+  bottom: 420px;
+  font-size: 2.5em;
+  z-index: 3;
+}
+
+.show-history {
+  width: 320px;
+  height: 340px;
+  top: 100px;
+  left: 20px;
+  font-size: 24px;
+  position: fixed;
+  display: flex;
+  z-index: 2;
+  padding: 10px;
+}
+
+.show-history-table-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-right: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #00a367;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px dotted transparent;
+}
+::-webkit-scrollbar-track {
+  background-color: #ebfaf4;
+  border-radius: 10px;
+}
+
+tr {
+  border: 2px solid #1a1a1a;
+}
+
+tr td:nth-child(2) {
+  padding: 4px;
+  border-left: 2px solid #1a1a1a;
+  border-right: 2px solid #1a1a1a;
+}
+
+.show-history-table {
+  display: inline-block;
+}
+
+.table-head td {
+  padding: 4px;
+}
